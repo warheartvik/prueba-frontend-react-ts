@@ -46,7 +46,7 @@ export function FrmUsuario(props: UsuarioId) {
                     console.log("ERROR: ", error);
                 });
         }
-    }, [url]);
+    }, []);
 
     return <div>
         <Typography id="modal-modal-title" variant="h6" component="h2">

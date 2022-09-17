@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Modal, Box, Button, Typography } from '@mui/material'
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Modal, Box, Button } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { FrmUsuario } from './components/FrmUsuario'
