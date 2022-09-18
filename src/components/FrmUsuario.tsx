@@ -29,11 +29,11 @@ export function FrmUsuario(props: UsuarioId) {
     }
 
     const Guardar = (evt: any) => {
-        console.log('Guardar')
         evt.preventDefault();
         props.guardarClic(UsuarioSelc);
 
     };
+    
     let url = `https://jsonplaceholder.typicode.com/users/${props.id}`;
     useEffect(() => {
         if (props.id > 0) {
@@ -46,67 +46,64 @@ export function FrmUsuario(props: UsuarioId) {
                     console.log("ERROR: ", error);
                 });
         }
-    }, []);
+    }, [url, props.id]);
 
     return <div>
         <Typography id="modal-modal-title" variant="h6" component="h2">
             Usuario
         </Typography>
         <form onSubmit={Guardar}>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-
-
-
-                <TextField
-                    fullWidth
-                    id="outlined-basic"
-                    label="Nombre"
-                    variant="outlined"
-                    name="name"
-                    value={UsuarioSelc.name}
-                    onChange={inputCambio}
-                />
-                <TextField
-                    fullWidth
-                    className='mt-2'
-                    id="outlined-basic"
-                    label="Usuario"
-                    variant="outlined"
-                    name="username"
-                    value={UsuarioSelc.username}
-                    onChange={inputCambio}
-                />
-                <TextField
-                    fullWidth
-                    className='mt-2'
-                    id="outlined-basic"
-                    label="Email"
-                    variant="outlined"
-                    name="email"
-                    value={UsuarioSelc.email}
-                    onChange={inputCambio}
-                />
-                <TextField
-                    fullWidth
-                    className='mt-2'
-                    id="outlined-basic"
-                    label="Teléfono"
-                    variant="outlined"
-                    name="phone"
-                    value={UsuarioSelc.phone}
-                    onChange={inputCambio}
-                />
-                <TextField
-                    fullWidth
-                    className='mt-2'
-                    id="outlined-basic"
-                    label="Sitio web"
-                    variant="outlined"
-                    name="website"
-                    value={UsuarioSelc.website}
-                    onChange={inputCambio}
-                />
-            </Typography>
+            {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}> */}
+            <TextField
+                fullWidth
+                id="outlined-basic"
+                label="Nombre"
+                variant="outlined"
+                name="name"
+                value={UsuarioSelc.name}
+                onChange={inputCambio}
+            />
+            <TextField
+                fullWidth
+                className='mt-2'
+                id="outlined-basic"
+                label="Usuario"
+                variant="outlined"
+                name="username"
+                value={UsuarioSelc.username}
+                onChange={inputCambio}
+            />
+            <TextField
+                fullWidth
+                className='mt-2'
+                id="outlined-basic"
+                label="Email"
+                variant="outlined"
+                name="email"
+                value={UsuarioSelc.email}
+                onChange={inputCambio}
+            />
+            <TextField
+                fullWidth
+                className='mt-2'
+                id="outlined-basic"
+                label="Teléfono"
+                variant="outlined"
+                name="phone"
+                value={UsuarioSelc.phone}
+                onChange={inputCambio}
+            />
+            <TextField
+                fullWidth
+                className='mt-2'
+                id="outlined-basic"
+                label="Sitio web"
+                variant="outlined"
+                name="website"
+                value={UsuarioSelc.website}
+                onChange={inputCambio}
+            />
+            {/* </Typography> */}
             <div>
                 {/* <button onSubmit={handleOnSubmit}>Add</button> */}
                 <Button
