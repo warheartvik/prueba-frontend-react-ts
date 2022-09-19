@@ -9,14 +9,16 @@ interface UsuarioId {
 const url = 'https://jsonplaceholder.typicode.com/users/'
 
 export function FrmUsuario(props: UsuarioId) {
+
+
     useEffect(() => {
         if (props.id > 0) {
-            ListarUnico()
+            ListarUnico(props.id)
         }
-    }, []);
+    }, [props.id]);
 
-    const ListarUnico = async () => {
-        fetch(url + props.id)
+    const ListarUnico = async (_id: number) => {
+        fetch(url + _id)
             .then((response) => response.json())
             .then((data) => {
                 setUsuarioSelc(data);
