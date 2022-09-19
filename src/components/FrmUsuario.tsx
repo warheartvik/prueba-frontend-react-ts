@@ -1,4 +1,4 @@
-import { Button, Typography, TextField } from '@mui/material'
+import { Button, Typography, TextField, Box } from '@mui/material'
 import { useEffect, useState } from "react";
 import { UsuarioDetalle } from '../../types/interfaces'
 interface UsuarioId {
@@ -6,8 +6,25 @@ interface UsuarioId {
     cancelarClic: () => any
     guardarClic: (usuario: UsuarioDetalle) => any
 }
+const url = 'https://jsonplaceholder.typicode.com/users/'
 
 export function FrmUsuario(props: UsuarioId) {
+    useEffect(() => {
+        if (props.id > 0) {
+            ListarUnico()
+        }
+    }, []);
+
+    const ListarUnico = async () => {
+        fetch(url + props.id)
+            .then((response) => response.json())
+            .then((data) => {
+                setUsuarioSelc(data);
+            })
+            .catch((error) => {
+                console.log("ERROR: ", error);
+            });
+    }
     let [UsuarioSelc, setUsuarioSelc] = useState<UsuarioDetalle>({
         id: 0,
         name: "",
@@ -33,27 +50,12 @@ export function FrmUsuario(props: UsuarioId) {
         props.guardarClic(UsuarioSelc);
 
     };
-    
-    let url = `https://jsonplaceholder.typicode.com/users/${props.id}`;
-    useEffect(() => {
-        if (props.id > 0) {
-            fetch(url)
-                .then((response) => response.json())
-                .then((data) => {
-                    setUsuarioSelc(data);
-                })
-                .catch((error) => {
-                    console.log("ERROR: ", error);
-                });
-        }
-    }, [url, props.id]);
 
     return <div>
         <Typography id="modal-modal-title" variant="h6" component="h2">
             Usuario
         </Typography>
         <form onSubmit={Guardar}>
-            {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}> */}
             <TextField
                 fullWidth
                 id="outlined-basic"
@@ -103,14 +105,11 @@ export function FrmUsuario(props: UsuarioId) {
                 value={UsuarioSelc.website}
                 onChange={inputCambio}
             />
-            {/* </Typography> */}
-            <div>
-                {/* <button onSubmit={handleOnSubmit}>Add</button> */}
+            <Box justifyContent={'end'} alignItems={'center'} display={'flex'} sx={{ margin: '10px 0' }}>
                 <Button
-                    type="submit"
-                    variant="contained">Guardar</Button>
-                <Button variant="outlined" color="secondary" onClick={Cancelar}>Cancelar</Button>
-            </div>
+                    type="submit">Guardar</Button>
+                <Button color="secondary" onClick={Cancelar}>Cancelar</Button>
+            </Box>
         </form>
     </div>
 }
