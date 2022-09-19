@@ -7,6 +7,7 @@ import { FrmUsuario } from './FrmUsuario'
 import { UsuarioDetalle } from '../../types/interfaces'
 import { ComPaginacion } from './ComPaginacion'
 import { ComItemPorPagina } from './ComItemPorPagina'
+import { IconButton, Tooltip } from '@mui/material';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -166,7 +167,15 @@ export function ComTablaUsuario() {
                 <ComItemPorPagina
                     value={cantidadUsuario}
                     cantidadCambio={PaginadoCambio} />
-                <PersonAddAlt1Icon onClick={NuevoRegistroClic} />
+                <div>
+                    <Tooltip title="Agregar usuario">
+                        <IconButton onClick={NuevoRegistroClic}>
+                            <PersonAddAlt1Icon />
+                        </IconButton>
+                    </Tooltip>
+                </div>
+
+
             </Box>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -184,7 +193,10 @@ export function ComTablaUsuario() {
                         {ListaUsuarios.map((unUsuario) => (
                             <TableRow
                                 key={unUsuario.id}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                sx={{
+                                    '&:last-child td, &:last-child th': { border: 0 },
+                                    '&:first-of-type td, &:first-of-type th': { cursor: 'pointer' }
+                                }}
                             >
                                 <TableCell component="th" scope="row">
                                     {unUsuario.name}
@@ -194,10 +206,19 @@ export function ComTablaUsuario() {
                                 <TableCell align="right">{unUsuario.phone}</TableCell>
                                 <TableCell align="right">{unUsuario.website}</TableCell>
                                 <TableCell align="right">
-                                    <EditIcon onClick={() => EditarClic(unUsuario.id)} />
-                                    <DeleteIcon
-                                        onClick={() => EliminarClic(unUsuario.id)}
-                                        className="ml-1" />
+                                    <Tooltip title="Editar">
+                                        <IconButton onClick={() => EditarClic(unUsuario.id)}>
+                                            <EditIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                    <Tooltip
+                                        className="ml-1"
+                                        title="Editar">
+                                        <IconButton onClick={() => EliminarClic(unUsuario.id)}>
+                                            <DeleteIcon />
+                                        </IconButton>
+                                    </Tooltip>
+
                                 </TableCell>
                             </TableRow>
                         ))}

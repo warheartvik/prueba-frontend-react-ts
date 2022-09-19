@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { 
-    Box, 
+import {
+    Box,
     Pagination
 } from '@mui/material'
 
@@ -36,9 +36,9 @@ export function ComPaginacion(props: Paginacion) {
 
     return (
         <Box justifyContent={'center'} alignItems={'center'} display={'flex'} sx={{ margin: '20px 0' }}>
-            <Pagination 
-            onChange={PaginacionCambio}
-            count={Math.ceil(itemsTotal / props.ItemsPorPagina)} />
+            <Pagination
+                onChange={PaginacionCambio}
+                count={Math.ceil(itemsTotal / props.ItemsPorPagina)} />
         </Box>
     )
 }
