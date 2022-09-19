@@ -54,9 +54,13 @@ export function FrmUsuario(props: UsuarioId) {
     };
 
     return <div>
+        <Box sx={{
+            margin: '10px 0'
+        }}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
             Usuario
         </Typography>
+        </Box>
         <form onSubmit={Guardar}>
             <TextField
                 fullWidth

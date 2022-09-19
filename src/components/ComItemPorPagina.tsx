@@ -4,14 +4,15 @@ import { useState } from 'react'
 
 interface CantidadSelc {
     value: number,
-    cantidadCambio: (cantidad: number) => any
+    cantidadCambio: (cantidad: any) => any
 }
 
 export function ComItemPorPagina(props: CantidadSelc) {
-    const [cantidad, setcantidad] = useState('10');
+    const [cantidad, setcantidad] = useState(props.value.toString());
     const handleChange = (event: SelectChangeEvent) => {
-        setcantidad(event.target.value as string);
-        props.cantidadCambio(Number(cantidad));
+        let _cantidad = event.target.value
+        setcantidad(_cantidad);
+        props.cantidadCambio(_cantidad);
     };
     return (
         <Box sx={{

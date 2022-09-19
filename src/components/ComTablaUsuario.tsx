@@ -26,6 +26,9 @@ export function ComTablaUsuario() {
     let [ListaUsuarios, setListaUsuarios] = useState<UsuarioDetalle[]>([]);
     let [UsuarioId, setUsuarioId] = useState<number>(0)
 
+    const [cantidadUsuario, setCantidadUsuario] = useState<number>(5);
+    const [paginaSelc, setPaginaSelc] = useState<number>(1);
+
     const [mostrarModal, setMostrarModal] = useState(false);
     const abrirModal = () => setMostrarModal(true)
     const cerrarModal = () => setMostrarModal(false)
@@ -50,11 +53,11 @@ export function ComTablaUsuario() {
     }
 
     useEffect(() => {
-        FecthData();
-    }, []);
+        FecthData(paginaSelc, cantidadUsuario);
+    }, [paginaSelc, cantidadUsuario]);
 
-    const FecthData = async () => {
-        fetch(url + '?_page=1&_limit=10')
+    const FecthData = async (_paginaSelc: number, _cantidadUsuario: number) => {
+        fetch(url + `?_page=${_paginaSelc}&_limit=${_cantidadUsuario}`)
             .then((response) => response.json())
             .then((data) => {
                 setListaUsuarios(data);
@@ -145,15 +148,16 @@ export function ComTablaUsuario() {
     };
 
     const PaginadoCambio = (cantidad: number) => {
-        console.log(cantidad)
         setCantidadUsuario(cantidad)
+        setPaginaSelc(1)
     }
 
-    const [cantidadUsuario, setCantidadUsuario] = useState<number>(5);
+    const PaginaSelcCambio = (pagina: number) => {
+        setPaginaSelc(pagina)
+    }
 
     return (
         <div>
-            {/* <Button variant="contained" onClick={NuevoRegistroClic}>Nuevo usuario</Button> */}
             <Box
                 sx={{
                     display: 'flex',
@@ -173,6 +177,7 @@ export function ComTablaUsuario() {
                             <TableCell align="right">Email</TableCell>
                             <TableCell align="right">Telefono</TableCell>
                             <TableCell align="right">Sitio web</TableCell>
+                            <TableCell align="right">Acciones</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -200,8 +205,8 @@ export function ComTablaUsuario() {
                 </Table>
             </TableContainer>
             <ComPaginacion
-                ItemsPorPagina={5}
-                ItemsTotal={ListaUsuarios.length}
+                ItemsPorPagina={cantidadUsuario}
+                paginaSelc={PaginaSelcCambio}
             />
             <Modal
                 open={mostrarModal}

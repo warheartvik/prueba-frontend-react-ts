@@ -1,40 +1,44 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { 
     Box, 
     Pagination
-    // TablePagination 
 } from '@mui/material'
+
+const url = 'https://jsonplaceholder.typicode.com/users/'
 
 interface Paginacion {
     ItemsPorPagina: number,
-    ItemsTotal: number,
+    paginaSelc: (pagina: number) => any
 }
 
 export function ComPaginacion(props: Paginacion) {
+
+    const [itemsTotal, setItemsTotal] = useState<number>(0)
     useEffect(() => {
-        console.log(props)
-    }, [props]);
+        FecthData()
+    }, []);
 
-    // const [page, setPage] = useState(2);
-    // const [rowsPerPage, setRowsPerPage] = useState(10);
+    const FecthData = async () => {
+        fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+                setItemsTotal(data.length);
+            })
+            .catch((error) => {
+                console.log("ERROR: ", error);
+            });
+    }
 
-    // const handleChangePage = (
-    //     event: React.MouseEvent<HTMLButtonElement> | null,
-    //     newPage: number,
-    // ) => {
-    //     setPage(newPage);
-    // };
+    const PaginacionCambio = (evento: any, pagina: number) => {
+        console.log(evento)
+        props.paginaSelc(pagina);
+    }
 
-    // const handleChangeRowsPerPage = (
-    //     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    // ) => {
-    //     setRowsPerPage(parseInt(event.target.value, 10));
-    //     setPage(0);
-    // };
     return (
         <Box justifyContent={'center'} alignItems={'center'} display={'flex'} sx={{ margin: '20px 0' }}>
             <Pagination 
-            count={Math.ceil(props.ItemsTotal / props.ItemsPorPagina)} />
+            onChange={PaginacionCambio}
+            count={Math.ceil(itemsTotal / props.ItemsPorPagina)} />
         </Box>
     )
 }
