@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { 
     Box, 
     Pagination
@@ -13,7 +13,7 @@ interface Paginacion {
 export function ComPaginacion(props: Paginacion) {
     useEffect(() => {
         console.log(props)
-    }, []);
+    }, [props]);
 
     // const [page, setPage] = useState(2);
     // const [rowsPerPage, setRowsPerPage] = useState(10);
